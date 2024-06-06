@@ -1,6 +1,16 @@
 {
   "dependencies": {
-    "prisma": "^5.12.1",
+    "@prisma/client": "^5.15.0",
+    "prisma": "^5.15.0",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.2",
+    "ts-node": "^10.9.2"
+  },
+  "scripts": {
+    "member": "ts-node member.ts",
+    "book": "ts-node book.ts",
+    "borrow": "ts-node borrow.ts"
   }
 }
