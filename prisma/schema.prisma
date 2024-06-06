@@ -12,3 +12,58 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Book {
+  id    String @id @default(cuid())
+  title   String
+  isbn    String
+  createdAt   DateTime @default(now())
+
+  // Foreign Keys
+  authorId    String?
+  memberId    String?
+
+  // Relationships
+  author Author? @relation(fields: [authorId], references: [id])
+  member Member? @relation(fields: [memberId], references: [id])
+  genres Genre[]
+
+  @@map("book")
+}
+
+model Author {
+  id    String @id @default(cuid())
+  name    String
+  biography   String
+  createdAt   DateTime @default(now())
+
+  // Relationships
+  books   Book[]
+
+  @@map("author")
+}
+
+model Genre {
+  id    String @id @default(cuid())
+  name    String
+
+  // Foreign Keys
+  bookId    String
+
+  // Relationships
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@map("genre")
+}
+
+model Member {
+  id    String @id @default(cuid())
+  name    String
+  email   String
+  address   String
+
+  // Relationships
+  books Book[]
+
+  @@map("member")
+}
